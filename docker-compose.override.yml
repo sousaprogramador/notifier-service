@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  kafka:
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'kafka-topics.sh',
+          '--bootstrap-server=localhost:9092',
+          '--list',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  zookeeper:
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'echo', 'ruok', '|', 'nc', 'localhost', '2181']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongodb:
+    restart: unless-stopped
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5

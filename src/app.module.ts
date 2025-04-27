@@ -1,10 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { PrometheusMetricsService } from './metrics/prometheus.metrics';
+import { NotificationModule } from './notification/notification.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    PrometheusModule.register(),
+    NotificationModule,
+    HealthModule,
+  ],
+  providers: [PrometheusMetricsService],
 })
 export class AppModule {}
