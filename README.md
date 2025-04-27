@@ -8,26 +8,6 @@
 - Prometheus + Grafana + Alertmanager
 - Terraform AWS ECS + CodeDeploy + ALB Blue/Green
 
-## 📦 Estrutura
-
-terraform/
-├── main.tf
-├── codedeploy.tf
-├── promotion.tf
-├── provider.tf
-├── variables.tf
-├── outputs.tf
-
-docker-compose.yml
-docker-compose.prometheus.yml
-
-prometheus/
-├── prometheus.yml
-├── alerts.yml
-
-alertmanager/
-├── alertmanager.yml
-
 ## 🚀 Rodar Local
 
 docker-compose -f docker-compose.yml -f docker-compose.prometheus.yml up -d
